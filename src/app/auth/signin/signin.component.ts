@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../auth.service';
 import {error} from 'selenium-webdriver';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -23,7 +24,7 @@ export class SigninComponent implements OnInit {
     ])
   });
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +35,8 @@ export class SigninComponent implements OnInit {
     }
     this.authService.signIn(this.authForm.value).subscribe({
       next: () => {
-      // Navigate to some rout
+      // Authomatic navigation
+        this.router.navigateByUrl('/inbox');
       },
       error: ({error}) => {
         // console.log(error);
